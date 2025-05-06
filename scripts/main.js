@@ -1,3 +1,7 @@
+let editorcfg = {}
+editorcfg.toolbar = "basic";
+const editor = new RichTextEditor("#rte", editorcfg)
+
 function openSidebar() {
   const sidebar = document.getElementById("sidebar");
   sidebar.classList.remove("d-none");
