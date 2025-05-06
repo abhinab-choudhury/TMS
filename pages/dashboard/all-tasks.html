@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Tasks - Task Management System | Mini Project</title>
+
+  <link rel="shortcut icon" href="./../../assets/icons-task.png" type="image/x-icon">
+  <link rel="stylesheet" href="./../../lib/bootstrap-5.3.5-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="./../../lib/fontawesome-free-6.7.2-web/css/all.css">
+  <link rel="stylesheet" href="./../../styles/global.css" />
+</head>
+
+<body>
+  <div class="d-flex">
+    <!-- sidebar -->
+    <div id="sidebar" class="flex-shrink-0 p-3 border d-none d-md-block" style="width: 280px; min-height: 100vh;">
+      <div class="d-flex align-items-center justify-content-between pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+        <a href="/" class="link-body-emphasis text-decoration-none">
+          <img src="../../assets/icons-task.png" alt="" width="40">
+          <span class="fs-5 fw-semibold ms-2">TMS</span>
+        </a>
+        <button id="sidebar-open-btn" class="btn m-2 d-block d-md-none" onclick="closeSidebar()">
+          <i class="fa-solid fa-rectangle-xmark"></i>
+        </button>
+      </div>
+    
+      <ul class="list-unstyled ps-0">
+        <!-- Home -->
+        <li class="mb-1">
+          <a href="./../home.html" class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+            <i class="fa-solid fa-house me-2"></i> Home
+          </a>
+        </li>
+    
+        <!-- Dashboard -->
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+            <i class="fa-solid fa-gauge-high me-2"></i> Dashboard
+          </button>
+          <div class="collapse show ms-3" id="dashboard-collapse">
+            
+            <!-- All Tasks -->
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="./all-tasks.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Tasks</a></li>
+            </ul>
+    
+            <!-- Priority -->
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2" data-bs-toggle="collapse" data-bs-target="#priority-collapse" aria-expanded="true">
+              <i class="fa-solid fa-flag me-2"></i> Priority Tasks
+            </button>
+            <div class="collapse show ms-3" id="priority-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="./all-tasks.html?priority=high" class="text-decoration-none" >High</a></li>
+                <li><a href="./all-tasks.html?priority=medium" class="text-decoration-none" >Medium</a></li>
+                <li><a href="./all-tasks.html?priority=low" class="text-decoration-none" >Low</a></li>
+              </ul>
+            </div>
+    
+            <!-- Category -->
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+              <i class="fa-solid fa-layer-group me-2"></i> Category Tasks
+            </button>
+            <div class="collapse show ms-3" id="category-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="./all-tasks.html?category=work" class="text-decoration-none" >Work</a></li>
+                <li><a href="./all-tasks.html?category=home" class="text-decoration-none" >Home</a></li>
+                <li><a href="./all-tasks.html?category=personal" class="text-decoration-none" >Personal</a></li>
+                <li><a href="./all-tasks.html?category=urgent" class="text-decoration-none" >Urgent</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- Scrum Board -->
+        <li class="mb-1">
+          <a href="./scrum-board.html" class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+            <i class="fa-brands fa-jira me-2"></i>Scrum Board
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Page Contains -->
+    <div class="container">
+      <header class="container d-flex align-items-center pb-3 pt-2 my-3 border-bottom">
+        <button id="sidebar-open-btn" class="btn m-2 d-block d-md-none" onclick="openSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="fs-5 fw-semibold">All Tasks</span>
+      </header>
+  
+      <div class="d-flex flex-column align-items-start">
+  
+        <!-- Filter 1 -->
+        <div class="card mt-4 mx-3">
+          <div class="d-flex">
+            <button type="button" id="get-all-tasks" class="btn rounded-0 border-0 btn-outline-secondary">All</button>
+            <button type="button" id="get-pending-tasks"
+              class="btn rounded-0 border-0 btn-outline-secondary">Pending</button>
+            <button type="button" id="get-inprogress-tasks"
+              class="btn rounded-0 border-0 btn-outline-secondary">Inprogress</button>
+            <button type="button" id="get-completed-tasks"
+              class="btn rounded-0 border-0 btn-outline-secondary">Completed</button>
+          </div>
+        </div>
+  
+        <!-- Card List -->
+        <div class="d-md-flex flex-wrap align-items-center my-3 w-100">
+          <div id="task-detail-card" class="card p-2 m-2">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle m-2 text-body-secondary">Card subtitle</h6>
+              <a href="#" class="card-link">Task Description</a>
+            </div>
+          </div>
+          <div id="task-detail-card" class="card p-2 m-2">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle m-2 text-body-secondary">Card subtitle</h6>
+              <a href="#" class="card-link">Task Description</a>
+            </div>
+          </div>
+          <div id="task-detail-card" class="card p-2 m-2">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle m-2 text-body-secondary">Card subtitle</h6>
+              <a href="#" class="card-link">Task Description</a>
+            </div>
+          </div>
+          <div id="task-detail-card" class="card p-2 m-2">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle m-2 text-body-secondary">Card subtitle</h6>
+              <a href="#" class="card-link">Task Description</a>
+            </div>
+          </div>
+          <div id="task-detail-card" class="card p-2 m-2">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle m-2 text-body-secondary">Card subtitle</h6>
+              <a href="#" class="card-link">Task Description</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script defer="" src="./../../lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"></script>
+  <script src="./../../scripts/main.js"></script>
+</body>
+
+</html>

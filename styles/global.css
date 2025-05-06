@@ -9,3 +9,27 @@
   margin: 0px;
   box-sizing: border-box;
 }
+
+
+.form-select:focus {
+  border-color: rgb(41, 41, 41);
+  box-shadow: 0 0 0 0.25rem rgba(41, 41, 41, 0.171);
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+#sidebar-toggle-btn {
+  display: none;
+}
+
+#task-detail-card {
+  width: 18rem;
+}
+@media screen and (max-width: 768px) {
+
+  #task-detail-card {
+    width: auto;
+  }
+}
