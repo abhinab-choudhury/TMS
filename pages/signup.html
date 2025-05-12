@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup - Task Management System | Mini Project</title>
+
+  <link rel="shortcut icon" href="./../assets/icons-task.png" type="image/x-icon">
+  <link rel="stylesheet" href="./../lib/bootstrap-5.3.5-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="./../lib/fontawesome-free-6.7.2-web/css/all.css">
+  <link rel="stylesheet" href="./../styles/global.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
+  <style>
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-radius: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="form-signin fluid-container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <form method="post" id="signUpForm" style="width: 330px;">
+      <img src="../assets/icons-task.png" alt="" width="50">
+      <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+      <div class="form-floating">
+        <input required type="text" class="form-control" id="floatingUsername" placeholder="Username">
+        <label for="floatingUsername">Username</label>
+      </div>
+
+      <div class="form-floating">
+        <input required type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+        <label for="floatingEmail">Email address</label>
+      </div>
+
+      <div class="form-floating">
+        <input required type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+        <div class="form-text" id="basic-addon4">Password must be atleast 8 characters long.</div>
+      </div>
+
+      <p class="my-3 text-body-secondary">Already had an Account <a href="./signin.html">Sign in</a></p>
+
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+      <p id="cr-year" class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
+    </form>
+  </main>
+  <script defer="" src="./../lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"></script>
+  <script src="./../scripts/appwrite.js"></script>
+  <script>
+    const copyright_year = document.getElementById("cr-year");
+    copyright_year.innerHTML = `&copy; ${new Date().getFullYear()}`
+
+    const signUpForm = document.getElementById("signUpForm");
+    signUpForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("floatingUsername").value;
+      const email = document.getElementById("floatingEmail").value;
+      const password = document.getElementById("floatingPassword").value;
+
+      const submitBtn = signUpForm.querySelector("button[type='submit']");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "Signing up...";
+
+      const account = new Account(client);
+
+      try {
+        await account.create(ID.unique(), email, password, username);
+
+        $.toast({
+          heading: "Welcome to Task Management System!",
+          text: "Your account has been created successfully. You can now start managing your tasks efficiently.",
+          showHideTransition: "fade",
+          icon: "success",
+        });
+
+        setTimeout(() => {
+          window.location.href = "/pages/signin.html";
+        }, 1500);
+      } catch (error) {
+        console.error("Signup Error:", error);
+        $.toast({
+          heading: "Account Creation Failed",
+          text: error.message || "Please check your details and try again.",
+          showHideTransition: "fade",
+          icon: "error",
+          loaderBg: "#dc3545",
+          position: "top-right",
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign up"
+      }
+    });
+  </script>
+</body>
+
+</html>

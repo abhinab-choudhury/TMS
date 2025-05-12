@@ -9,15 +9,21 @@
   <link rel="shortcut icon" href="./../assets/icons-task.png" type="image/x-icon">
   <link rel="stylesheet" href="./../lib/bootstrap-5.3.5-dist/css/bootstrap.css">
   <link rel="stylesheet" href="./../lib/fontawesome-free-6.7.2-web/css/all.css">
-  <link rel="stylesheet" href="./../lib/richtexteditor/rte_theme_default.css" />
+  <link rel="stylesheet" href="./../lib/richtexteditor/rte_theme_default.css">
   <link rel="stylesheet" href="./../styles/global.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
 </head>
 
 <body>
-  <div class="d-flex">
-    <!-- sidebar -->
+  <div class="d-flex flex-column flex-md-row">
+    <!-- Sidebar -->
     <div id="sidebar" class="flex-shrink-0 p-3 border d-none d-md-block" style="width: 280px; min-height: 100vh;">
-      <div class="d-flex align-items-center justify-content-between pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+      <div
+        class="d-flex align-items-center justify-content-between pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
         <a href="/" class="link-body-emphasis text-decoration-none">
           <img src="../assets/icons-task.png" alt="" width="40">
           <span class="fs-5 fw-semibold ms-2">TMS</span>
@@ -26,7 +32,7 @@
           <i class="fa-solid fa-rectangle-xmark"></i>
         </button>
       </div>
-    
+
       <ul class="list-unstyled ps-0">
         <!-- Home -->
         <li class="mb-1">
@@ -34,58 +40,59 @@
             <i class="fa-solid fa-house me-2"></i> Home
           </a>
         </li>
-    
+
         <!-- Dashboard -->
         <li class="mb-1">
-          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse"
+            data-bs-target="#dashboard-collapse" aria-expanded="true">
             <i class="fa-solid fa-gauge-high me-2"></i> Dashboard
           </button>
           <div class="collapse show ms-3" id="dashboard-collapse">
-            
+
             <!-- All Tasks -->
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="./dashboard/all-tasks.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Tasks</a></li>
+              <li><a href="./dashboard/all-tasks.html"
+                  class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Tasks</a></li>
             </ul>
-    
+
             <!-- Priority -->
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2" data-bs-toggle="collapse" data-bs-target="#priority-collapse" aria-expanded="true">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2"
+              data-bs-toggle="collapse" data-bs-target="#priority-collapse" aria-expanded="true">
               <i class="fa-solid fa-flag me-2"></i> Priority Tasks
             </button>
             <div class="collapse show ms-3" id="priority-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./dashboard/all-tasks.html?priority=high" class="text-decoration-none" >High</a></li>
-                <li><a href="./dashboard/all-tasks.html?priority=medium" class="text-decoration-none" >Medium</a></li>
-                <li><a href="./dashboard/all-tasks.html?priority=low" class="text-decoration-none" >Low</a></li>
+                <li><a href="./dashboard/all-tasks.html?priority=high" class="text-decoration-none">High</a></li>
+                <li><a href="./dashboard/all-tasks.html?priority=medium" class="text-decoration-none">Medium</a></li>
+                <li><a href="./dashboard/all-tasks.html?priority=low" class="text-decoration-none">Low</a></li>
               </ul>
             </div>
-    
+
             <!-- Category -->
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 ms-2 mt-2"
+              data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
               <i class="fa-solid fa-layer-group me-2"></i> Category Tasks
             </button>
             <div class="collapse show ms-3" id="category-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./dashboard/all-tasks.html?category=work" class="text-decoration-none" >Work</a></li>
-                <li><a href="./dashboard/all-tasks.html?category=home" class="text-decoration-none" >Home</a></li>
-                <li><a href="./dashboard/all-tasks.html?category=personal" class="text-decoration-none" >Personal</a></li>
-                <li><a href="./dashboard/all-tasks.html?category=urgent" class="text-decoration-none" >Urgent</a></li>
+                <li><a href="./dashboard/all-tasks.html?category=work" class="text-decoration-none">Work</a></li>
+                <li><a href="./dashboard/all-tasks.html?category=home" class="text-decoration-none">Home</a></li>
+                <li><a href="./dashboard/all-tasks.html?category=personal" class="text-decoration-none">Personal</a></li>
+                <li><a href="./dashboard/all-tasks.html?category=urgent" class="text-decoration-none">Urgent</a></li>
               </ul>
             </div>
           </div>
         </li>
-
-        <!-- Scrum Board -->
-        <li class="mb-1">
-          <a href="./scrum-board.html" class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
-            <i class="fa-brands fa-jira me-2"></i>Scrum Board
-          </a>
-        </li>
+        <li class="border-top my-3"></li>
+        <button type="button" class="btn btn-danger w-100" onClick="signOut()">SignOut</button>
       </ul>
     </div>
-    
-    <!-- main page -->
-    <div class="container">
-      <header class="container d-flex align-items-center pb-3 pt-2 my-3 border-bottom">
+
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 container-fluid mb-5">
+      <!-- Header -->
+      <header class="d-flex align-items-center pb-3 pt-2 my-3 border-bottom">
         <button id="sidebar-open-btn" class="btn m-2 d-block d-md-none" onclick="openSidebar()">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -93,71 +100,84 @@
       </header>
 
       <h1 class="m-4 fw-bold">Create New Tasks</h1>
+
       <!-- Add Task Form -->
-      <form>
-        <!-- rich-texteditor -->
-        <div class="container d-flex flex-row flex-wrap gap-3 justify-content-center w-100">
-          <div class="d-flex flex-column d-md-w-50">
+      <form method="post" id="createTaskForm">
+        <div class="row g-4 px-4">
+          <!-- Left Section -->
+          <div class="col-12 col-md-6">
             <p class="form-label">Task Description</p>
-            <!-- select the status type -->
+            <!-- Status Select -->
             <div class="form-floating mb-4">
-              <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                <option selected>Open this select menu</option>
-                <option value="1">Pending</option>
-                <option value="2">Inprogress</option>
-                <option value="3">Completed</option>
+              <select required name="taskStatus" class="form-select" id="floatingTaskStatus">
+                <option selected disabled>Open this select menu</option>
+                <option value="pending">Pending</option>
+                <option value="inprogress">Inprogress</option>
+                <option value="completed">Completed</option>
               </select>
-              <label for="floatingSelect">Status</label>
+              <label for="floatingTaskStatus">Status</label>
             </div>
 
-            <!-- rich-texteditor -->
-            <div id="rte" style="height: 100%">
-            </div>
+            <!-- Rich Text Editor -->
+            <textarea id="rte" style="height: 345px; width: 100%"></textarea>
           </div>
-          <div class="p-4 card">
-            <div class="mb-3">
+
+          <!-- Right Section -->
+          <div class="col-12 col-md-6">
+            <div class="card p-4">
               <div class="mb-3">
-                <label for="textInput" class="form-label">Task Name</label>
-                <input type="text" class="form-control" id="textInput" required aria-describedby="emailHelp">
-                <div class="form-text">Task Name is Required.</div>
+                <label for="taskName" class="form-label">Task Name</label>
+                <input type="text" class="form-control" name="taskName" id="taskName" required>
+                <div class="form-text">Please enter a task title (required, max 50 characters).</div>
               </div>
-              <label for="categorySelect" class="form-label">Select Category</label>
-              <select class="form-select m-2" id="categorySelect">
-                <option selected="">Open this select menu</option>
-                <option value="work">Work</option>
-                <option value="home">Home</option>
-                <option value="personal">Personal</option>
-                <option value="urgent">Urgent</option>
-              </select>
-              <label for="prioritySelect" class="form-label">Select Priority</label>
-              <select class="form-select m-2" id="prioritySelect">
-                <option selected="">Open this select menu</option>
-                <option value="hight">Hight</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-              <div class="d-md-flex gap-1 m-2">
-                <div class="mb-3">
+
+              <div class="mb-3">
+                <label for="categorySelect" class="form-label">Select Category</label>
+                <select required class="form-select" name="categorySelect" id="categorySelect">
+                  <option selected disabled>Open this select menu</option>
+                  <option value="work">Work</option>
+                  <option value="home">Home</option>
+                  <option value="personal">Personal</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="prioritySelect" class="form-label">Select Priority</label>
+                <select class="form-select" name="prioritySelect" id="prioritySelect" required>
+                  <option selected disabled>Open this select menu</option>
+                  <option value="high">High</option> <!-- fixed typo -->
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
                   <label for="startDateInput" class="form-label">Start Date</label>
-                  <input type="date" class="form-control" id="startDateInput" required aria-describedby="emailHelp">
+                  <input type="datetime-local" class="form-control" name="startDateInput" id="startDateInput" required>
                 </div>
-                <div class="mb-3">
+                <div class="col-12 col-md-6">
                   <label for="endDateInput" class="form-label">Due Date</label>
-                  <input type="date" class="form-control" id="endDateInput" required aria-describedby="emailHelp">
+                  <input type="datetime-local" class="form-control" name="endDateInput" id="endDateInput" required>
                 </div>
               </div>
+
+              <button id="submit-btn" type="submit" class="btn btn-primary w-100">Create Task</button>
             </div>
-            <button type="button" class="btn btn-primary">Create</button>
           </div>
         </div>
       </form>
     </div>
   </div>
+
   <script defer="" src="./../lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"></script>
   <script type="text/javascript" src="./../lib/richtexteditor/rte.js"></script>
   <script type="text/javascript" src='./../lib/richtexteditor/plugins/all_plugins.js'></script>
   <script src="./../scripts/main.js"></script>
+  <script src="./../scripts/appwrite.js"></script>
+  <script src="./../scripts/rte.js"></script>
   <script src="./../scripts/home.js"></script>
 </body>
 

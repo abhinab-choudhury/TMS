@@ -9,8 +9,14 @@
   <link rel="shortcut icon" href="./../../assets/icons-task.png" type="image/x-icon">
   <link rel="stylesheet" href="./../../lib/bootstrap-5.3.5-dist/css/bootstrap.css">
   <link rel="stylesheet" href="./../../lib/fontawesome-free-6.7.2-web/css/all.css">
-  <link rel="stylesheet" href="./../../lib/richtexteditor/rte_theme_default.css" />
+  <link rel="stylesheet" href="./../../lib/richtexteditor/rte_theme_default.css">
+  <link rel="stylesheet" href="./../../assets/">
   <link rel="stylesheet" href="./../../styles/global.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
 </head>
 
 <body>
@@ -73,13 +79,8 @@
             </div>
           </div>
         </li>
-
-        <!-- Scrum Board -->
-        <li class="mb-1">
-          <a href="./../scrum-board.html" class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
-            <i class="fa-brands fa-jira me-2"></i>Scrum Board
-          </a>
-        </li>
+        <li class="border-top my-3"></li>
+        <button type="button" class="btn btn-danger w-100" onClick="signOut()">SignOut</button>
       </ul>
     </div>
 
@@ -90,80 +91,75 @@
           <i class="fa-solid fa-bars"></i>
         </button>
         <div class="d-flex flex-column gap-1">
-          <span class="fs-5 fw-semibold">Task - { Task Title }</span>
-          <p class="fs-6"> ID : 3fa85f64-5717-4562-b3fc-2c963f66afa6 </p>
+          <span id="title-heading" class="fs-5 fw-semibold">Task - { Task Title }</span>
+          <p id="titleId-heading"  class="fs-6"> ID : 3fa85f64-5717-4562-b3fc-2c963f66afa6 </p>
         </div>
       </header>
 
-      <!-- Add Task Form -->
-      <form>
-        <!-- rich-texteditor -->
-        <div class="container d-flex gap-3 mx-auto justify-content-center flex-wrap w-100">
-          <div class="d-flex flex-column">
+      <!-- Update Task Form -->
+      <form method="post" id="updateTaskForm">
+        <div class="row g-4 px-4">
+          <!-- Left Section -->
+          <div class="col-12 col-md-6">
             <p class="form-label">Task Description</p>
-            <!-- select the status type -->
+            <!-- Status Select -->
             <div class="form-floating mb-4">
-              <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                <option selected>Open this select menu</option>
-                <option value="1">Pending</option>
-                <option selected value="2">Inprogress</option>
-                <option value="3">Completed</option>
+              <select required name="taskStatus" class="form-select" id="floatingTaskStatus">
+                <option selected disabled>Open this select menu</option>
+                <option value="pending">Pending</option>
+                <option value="inprogress">Inprogress</option>
+                <option value="completed">Completed</option>
               </select>
-              <label for="floatingSelect">Status</label>
+              <label for="floatingTaskStatus">Status</label>
             </div>
-            <!-- rich-texteditor -->
-            <div id="rte" style="height: 100%">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nobis, voluptatem excepturi! Aliquam, nihil est eum iusto
-                repellat consequatur possimus nam sunt accusantium vero
-                repellendus laudantium nisi adipisci! Qui, praesentium mollitia.
-              </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nobis, voluptatem excepturi! Aliquam, nihil est eum iusto
-                repellat consequatur possimus nam sunt accusantium vero
-                repellendus laudantium nisi adipisci! Qui, praesentium mollitia.
-              </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nobis, voluptatem excepturi! Aliquam, nihil est eum iusto
-                repellat consequatur possimus nam sunt accusantium vero
-                repellendus laudantium nisi adipisci! Qui, praesentium mollitia.
-              </p>
-            </div>
+
+            <!-- Rich Text Editor -->
+            <textarea id="rte" style="height: 345px; width: 100%"></textarea>
           </div>
-          <div class="p-4 card">
-            <div class="mb-3">
+
+          <!-- Right Section -->
+          <div class="col-12 col-md-6">
+            <div class="card p-4">
               <div class="mb-3">
-                <label for="textInput" class="form-label">Task Name</label>
-                <input disabled value="{ Task Title }" type="text" class="form-control" id="textInput" required aria-describedby="emailHelp">
+                <label for="taskName" class="form-label">Task Name</label>
+                <input type="text" class="form-control" name="taskName" id="taskName" required>
                 <div class="form-text">Task Name is Required.</div>
               </div>
-              <label for="categorySelect" class="form-label">Select Category</label>
-              <select class="form-select m-2" id="categorySelect">
-                <option selected="">Open this select menu</option>
-                <option selected value="work">Work</option>
-                <option value="home">Home</option>
-                <option value="personal">Personal</option>
-                <option value="urgent">Urgent</option>
-              </select>
-              <label for="prioritySelect" class="form-label">Select Priority</label>
-              <select class="form-select m-2" id="prioritySelect">
-                <option selected="">Open this select menu</option>
-                <option value="hight">Hight</option>
-                <option value="medium">Medium</option>
-                <option selected value="low">Low</option>
-              </select>
-              <div class="d-flex gap-1 m-2">
-                <div class="mb-3">
+
+              <div class="mb-3">
+                <label for="categorySelect" class="form-label">Select Category</label>
+                <select required class="form-select" name="categorySelect" id="categorySelect">
+                  <option selected disabled>Open this select menu</option>
+                  <option value="work">Work</option>
+                  <option value="home">Home</option>
+                  <option value="personal">Personal</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="prioritySelect" class="form-label">Select Priority</label>
+                <select class="form-select" name="prioritySelect" id="prioritySelect" required>
+                  <option selected disabled>Open this select menu</option>
+                  <option value="high">High</option> <!-- fixed typo -->
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
                   <label for="startDateInput" class="form-label">Start Date</label>
-                  <input disabled value="2025-05-10" type="date" class="form-control" id="startDateInput" required aria-describedby="emailHelp">
+                  <input type="datetime-local" class="form-control" name="startDateInput" id="startDateInput" required>
                 </div>
-                <div class="mb-3">
+                <div class="col-12 col-md-6">
                   <label for="endDateInput" class="form-label">Due Date</label>
-                  <input disabled value="2025-05-21" type="date" class="form-control" id="endDateInput" required aria-describedby="emailHelp">
+                  <input type="datetime-local" class="form-control" name="endDateInput" id="endDateInput" required>
                 </div>
               </div>
+
+              <button id="submit-btn" type="submit" class="btn btn-primary w-100">Update Task</button>
             </div>
-            <button type="button" class="btn btn-primary">Update Task</button>
           </div>
         </div>
       </form>
@@ -174,6 +170,8 @@
   <script type="text/javascript" src="./../../lib/richtexteditor/rte.js"></script>
   <script type="text/javascript" src='./../../lib/richtexteditor/plugins/all_plugins.js'></script>
   <script src="./../../scripts/main.js"></script>
+  <script src="./../../scripts/appwrite.js"></script>
+  <script src="./../../scripts/rte.js"></script>
   <script src="./../../scripts/task-details.js"></script>
 </body>
 

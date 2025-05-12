@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signin - Task Management System | Mini Project</title>
+
+  <link rel="shortcut icon" href="./../assets/icons-task.png" type="image/x-icon">
+  <link rel="stylesheet" href="./../lib/bootstrap-5.3.5-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="./../lib/fontawesome-free-6.7.2-web/css/all.css">
+  <link rel="stylesheet" href="./../styles/global.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
+</head>
+
+<body>
+  <main class="form-signin fluid-container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <form method="post" id="signInForm" style="width: 330px;">
+      <img src="../assets/icons-task.png" alt="" width="50">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <div class="form-floating">
+        <input required type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+        <label for="floatingEmail">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input required type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <p class="my-3 text-body-secondary">Don't have an Account <a href="./signup.html">Sign up</a></p>
+
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <p id="cr-year" class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
+    </form>
+  </main>
+  <script defer="" src="./../lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"></script>
+  <script src="./../scripts/appwrite.js"></script>
+  <script>
+    const copyright_year = document.getElementById("cr-year");
+    copyright_year.innerHTML = `&copy; ${new Date().getFullYear()}`
+
+    const signInForm = document.getElementById("signInForm");
+    signInForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("floatingEmail").value;
+      const password = document.getElementById("floatingPassword").value;
+
+      const submitBtn = signInForm.querySelector("button[type='submit']");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing in...";
+
+      const account = new Account(client);
+      try {
+        usersession = await account.createEmailPasswordSession(email, password);
+        setTimeout(() => {
+          window.location.href = "/pages/home.html";
+        }, 1500);
+      } catch (error) {
+        console.error("Login Error:", error);
+        $.toast({
+          heading: "Login Failed",
+          text: error.message || "Invalid credentials, please try again.",
+          showHideTransition: "fade",
+          icon: "error",
+          loaderBg: "#dc3545",
+          position: "top-right",
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign in";
+      }
+    })
+  </script>
+</body>
+
+</html>
