@@ -8,6 +8,26 @@ client
 const account = new Account(client);
 const databases = new Databases(client);
 
+async function signOut() {
+  try {
+    await account.deleteSession("current");
+    $.toast({
+      heading: "SignOut",
+      text: "SignOut Successfull",
+      showHideTransition: "fade",
+      icon: "info",
+    });
+    window.location.href = "./../index.html";
+  } catch (error) {
+    $.toast({
+      heading: "Failed",
+      text: "SignOut Fasiled, Please try again",
+      showHideTransition: "fade",
+      icon: "error",
+    });
+  }
+}
+
 async function DeleteTask(taskID, event) {
   const button = event.target;
   button.disabled = true;
