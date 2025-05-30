@@ -185,9 +185,9 @@ $(document).ready(function () {
     TasksView.empty();
 
     TasksView.html(`
-        <div class="d-flex justify-content-center align-items-center mx-auto" style="height: 100vh;">
+        <div class="d-flex justify-content-center align-items-center w-100 py-5"> {/* Removed mx-auto and style, added w-100 and py-5 */}
           <i class="fa-solid fa-circle-notch fa-spin fa-3x"></i>
-        </div>  
+        </div>
       `);
     apiPromise.then(function (response) { // Changed from 'Promise' to 'apiPromise'
       TasksView.empty();
@@ -251,8 +251,7 @@ $(document).ready(function () {
           TaskBody.append([CardTitle, StatesDiv, DetailPageLink, DeleteTaskBtn]);
   
           const TaskCard = $("<div>")
-            .attr("id", "task-detail-card")
-            .addClass("card p-2 m-2")
+            .addClass("card task-card-item p-2 m-2") // Removed id, added class "task-card-item"
             .append(TaskBody);
   
           TasksView.append(TaskCard);
