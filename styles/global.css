@@ -46,12 +46,35 @@
   display: none;
 }
 
-#task-detail-card {
+.task-card-item {
   width: 18rem;
+  height: 10rem; /* Fixed height */
+  display: flex;
+  flex-direction: column;
 }
-@media screen and (max-width: 768px) {
 
-  #task-detail-card {
+.task-card-item .class-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.task-card-item .class-body .btn-danger {
+   margin-top: auto;
+   align-self: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .task-card-item {
     width: auto;
+    height: auto; /* Revert to auto height on mobile */
+  }
+  .task-card-item .class-body {
+    overflow-y: visible; /* No scroll needed if height is auto */
+  }
+  .task-card-item .class-body .btn-danger {
+     margin-top: revert; /* Revert margin-top for mobile */
+     align-self: auto; /* Revert align-self for mobile */
   }
 }
