@@ -48,7 +48,7 @@
 
 .task-card-item {
   width: 18rem;
-  height: 22rem; /* Fixed height */
+  height: 10rem; /* Fixed height */
   display: flex;
   flex-direction: column;
 }

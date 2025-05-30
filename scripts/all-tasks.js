@@ -185,7 +185,7 @@ $(document).ready(function () {
     TasksView.empty();
 
     TasksView.html(`
-        <div class="d-flex justify-content-center align-items-center w-100 py-5"> {/* Removed mx-auto and style, added w-100 and py-5 */}
+        <div class="d-flex justify-content-center align-items-center w-100 py-5">
           <i class="fa-solid fa-circle-notch fa-spin fa-3x"></i>
         </div>
       `);
@@ -227,7 +227,7 @@ $(document).ready(function () {
             .text("Task Description");
   
           const DeleteTaskBtn = $("<button>")
-            .addClass("btn btn-danger d-flex ms-auto p-2")
+            .addClass("btn btn-danger d-flex p-2")
             .html("<i class='fa fa-trash'></i>") 
             .on('click', function(event) {
               // Make sure DeleteTask is defined, possibly globally or imported if modules are used
@@ -246,9 +246,12 @@ $(document).ready(function () {
               // console.log("Task deletion initiated. Cache invalidation might be handled by DeleteTask or require manual refresh.");
             });
 
+          const footerDiv = $("<div>").addClass("d-flex justify-content-between mt-auto");
+          footerDiv.append(DetailPageLink, DeleteTaskBtn);
+
           const TaskBody = $("<div>");
           TaskBody.attr("class", "class-body");
-          TaskBody.append([CardTitle, StatesDiv, DetailPageLink, DeleteTaskBtn]);
+          TaskBody.append([CardTitle, StatesDiv, footerDiv]);
   
           const TaskCard = $("<div>")
             .addClass("card task-card-item p-2 m-2") // Removed id, added class "task-card-item"
