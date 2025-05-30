@@ -46,8 +46,27 @@ async function DeleteTask(taskID, event) {
       icon: "info",
       position: "top-right",
     });
+
+    // Invalidate specific task detail cache
+    if (typeof window.invalidateSpecificTaskDetailCache === 'function') {
+      console.log(`Invalidating task detail cache for taskID: ${taskID} from appwrite.js`);
+      window.invalidateSpecificTaskDetailCache(taskID);
+    }
+
+    // Invalidate all tasks list cache
+    if (typeof window.invalidateAllTasksListCache === 'function') {
+      console.log("Invalidating all tasks list cache from appwrite.js after delete");
+      window.invalidateAllTasksListCache();
+    }
+
+    // Reload page if on all-tasks.html to reflect deletion
+    if (window.location.pathname.includes("all-tasks.html")) {
+      setTimeout(() => {
+          window.location.reload();
+      }, 1000); // Delay to allow toast to be seen
+    }
   } catch (error) {
-    console.error("Update failed:", err);
+    console.error("Delete failed:", error); // Corrected from "Update failed:", err
     $.toast({
       heading: "Error",
       text: "Failed to delete task!",
