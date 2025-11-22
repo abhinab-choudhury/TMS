@@ -1,7 +1,9 @@
 
 ## 🗂️ TMS - Task Management System
+<img width="1723" height="915" alt="image" src="https://github.com/user-attachments/assets/7657cd97-7fc7-4305-9982-edb0099761bd" />
 
 A full-featured web-based task management solution built entirely using HTML, CSS, and JS
+
 
 ### 📌 **Project Objective**
 
@@ -56,22 +58,4 @@ TMS (Task Management System) is a browser-based application designed to help ind
 * 🎨 **Toast Notifications**
   * Uses `jquery.toast` to display success/error messages on actions like saving or deleting tasks.
 
----
-
-### 📌 Example Use Cases
-
-* Personal todo list or planner
-* Team-based project tracking
-* Academic assignment manager
-* Freelancer project deadlines
-
----
-
-### 🧪 Possible Future Enhancements
-
-* Drag-and-drop task reordering
-* Task categories or labels
-* Subtasks and checklists
-* Comments or activity history per task
-* Dark mode switcher
-* Email reminders using Appwrite functions
+> Note: 4th-sem minor-project | 2025
